@@ -1,13 +1,54 @@
 import java.util.Scanner;
 
-public class ContaPoupanca extends Conta {
+public class ContaPoupanca implements IConta{
 
-	public ContaPoupanca(Cliente cliente) {
-		super(cliente);
+	private static int AGENCIA_PADRAO = 1;
+	private static int SEQUENCIAL = 1;
+
+	protected int agencia;
+	protected int numero;
+	protected static double saldo;
+	protected static String cliente;
+	private int codigo;
+
+	public void Conta() {
+		this.agencia = ContaPoupanca.AGENCIA_PADRAO;
+		this.numero = SEQUENCIAL++;
+		
 	}
+
+	@Override
+	public void sacar(double valor) {
+		saldo -= valor;
+	}
+
+	@Override
+	public void depositar(double valor) {
+		saldo += valor;
+	}
+
+	@Override
+	public void transferir(double valor, IConta contaDestino) {
+		this.sacar(valor);
+		contaDestino.depositar(valor);
+	}
+
+	public int getAgencia() {
+		return agencia;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	
 	
 	public void ContaCP() {
-		//super.navegacao();
+		
 		
 		Scanner scan = new Scanner(System.in);
 		MenuContas menu = new MenuContas();
@@ -36,20 +77,21 @@ public class ContaPoupanca extends Conta {
 				menu.menu(); }
 			if(nav==2) break;
 		}
+		scan.close();
 	}
 	
 	protected void operacao(int retorn) {
 		Scanner scan =  new Scanner(System.in);
-		Cliente nome = new Cliente();
-		
-		ContaCorrente cc = new ContaCorrente(nome);
 		
 		
-		ContaPoupanca cp = new ContaPoupanca(nome);
+		ContaCorrente cc = new ContaCorrente();
+		
+		
+		ContaPoupanca cp = new ContaPoupanca();
 			
 		int contaD = 0;
 		double valor = 0;
-		int extrato = 0;
+	
 	
 			
 		
@@ -89,6 +131,7 @@ public class ContaPoupanca extends Conta {
 					this.transferir(valor, cp);
 					
 				}
+				break;
 		case 4: System.out.println("Imprimindo Extrato ... ");
 				
 					cp.imprimirExtrato();
@@ -96,12 +139,17 @@ public class ContaPoupanca extends Conta {
 					
 				
 		}
+		scan.close();
 	}
 	
 
 	@Override
 	public void imprimirExtrato() {
+		Cliente nome = new Cliente();
 		System.out.println("=== Extrato Conta Poupança ===");
-		super.imprimirInfosComuns();
+		System.out.println(String.format("Titular: %s", nome.getNome()));
+		System.out.println(String.format("Agencia: %d", ContaPoupanca.AGENCIA_PADRAO));
+		System.out.println(String.format("Numero: %d", this.numero));
+		System.out.println(String.format("Saldo: %.2f", ContaPoupanca.saldo));
 	}
 }

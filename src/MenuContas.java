@@ -1,4 +1,4 @@
-import java.util.Scanner;
+
 
 public class MenuContas {
 	
@@ -10,11 +10,13 @@ public class MenuContas {
 	
 
 	public String nome() {
-		Scanner scan = new Scanner(System.in);
+		
 		String nome = " ";
 		System.out.println("Digite o nome do Cliente: ");
-		nome = scan.nextLine();
+		
+		nome = LeitoraDados.lerDado();
 		MenuContas.nomeC = nome;
+		
 		return nomeC;
 	}
 	
@@ -22,7 +24,8 @@ public class MenuContas {
 	
 	public void menu() {
 		
-		Scanner scan = new Scanner(System.in);
+		
+		
 		
 		
 		
@@ -31,10 +34,10 @@ public class MenuContas {
 		nome.setNome(nomeC);
 	
 		
-		ContaCorrente cc = new ContaCorrente(nome);
-		ContaPoupanca cp =  new ContaPoupanca(nome);
+		ContaCorrente cc = new ContaCorrente();
+		ContaPoupanca cp =  new ContaPoupanca();
 		
-		int nav = 0;
+		String nav = " ";
 		
 		System.out.println("Cliente: " + nome.getNome());
 		System.out.println("  ");
@@ -42,13 +45,15 @@ public class MenuContas {
 		System.out.println("1 - Conta Corrente.");
 		System.out.println("2 - Conta poupança.");
 		
-		nav = scan.nextInt();
+		nav = LeitoraDados.lerDado();
 		
-		if(nav==1) {
+		if(nav.equals("1")) {
 			cc.ContaCC();
-		}else if (nav==2) {
+		}else if (nav.equals("2")) {
 			cp.ContaCP();
 		}
 	}
+	
+	
 
 }

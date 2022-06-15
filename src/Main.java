@@ -21,7 +21,7 @@ public class Main {
 		menu.menu();
 
 		System.out.println("Sistema Finalizado. " + "\n" + banco.getNome()+ " Agradece a preferência. ");
-		
+		scan.close();
 	}
 
 }

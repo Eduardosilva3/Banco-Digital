@@ -1,16 +1,56 @@
 import java.util.Scanner;
 
-public class ContaCorrente extends Conta {
+public class ContaCorrente implements IConta{
 
-	
-	
-	public ContaCorrente(Cliente cliente) {
-		super(cliente);
+	private static int AGENCIA_PADRAO = 1;
+	private static int SEQUENCIAL = 1;
+
+	protected int agencia;
+	protected int numero;
+	protected static double saldo;
+	protected static String cliente;
+	private int codigo;
+
+	public void Conta() {
+		this.agencia = ContaCorrente.AGENCIA_PADRAO;
+		this.numero = SEQUENCIAL++;
 		
 	}
 
+	@Override
+	public void sacar(double valor) {
+		saldo -= valor;
+	}
+
+	@Override
+	public void depositar(double valor) {
+		saldo += valor;
+	}
+
+	@Override
+	public void transferir(double valor, IConta contaDestino) {
+		this.sacar(valor);
+		contaDestino.depositar(valor);
+	}
+
+	public int getAgencia() {
+		return agencia;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	
+	
+	
+
 	public void ContaCC (){
-		//super.navegacao();
+		
 		
 		Scanner scan = new Scanner(System.in);
 		MenuContas menu = new MenuContas();
@@ -40,16 +80,17 @@ public class ContaCorrente extends Conta {
 			if(nav==2) break;
 			
 		}
+		
 	}
 	
 	protected void operacao(int retorn) {
 		Scanner scan =  new Scanner(System.in);
-		Cliente nome = new Cliente();
-		
-		ContaCorrente cc = new ContaCorrente(nome);
 		
 		
-		ContaPoupanca cp = new ContaPoupanca(nome);
+		ContaCorrente cc = new ContaCorrente();
+		
+		
+		ContaPoupanca cp = new ContaPoupanca();
 			
 		int contaD = 0;
 		double valor = 0;
@@ -93,6 +134,7 @@ public class ContaCorrente extends Conta {
 					this.transferir(valor, cp);
 					
 				}
+				break;
 		case 4: System.out.println("Imprimindo Extrato ... ");
 				
 				
@@ -101,12 +143,18 @@ public class ContaCorrente extends Conta {
 					cc.imprimirExtrato();
 				
 		}
+		
 	}
 
 	@Override
 	public void imprimirExtrato() {
+		Cliente nome = new Cliente();
+		
 		System.out.println("=== Extrato Conta Corrente ===");
-		super.imprimirInfosComuns();
+		System.out.println(String.format("Titular: %s", nome.getNome()));
+		System.out.println(String.format("Agencia: %d", ContaCorrente.AGENCIA_PADRAO));
+		System.out.println(String.format("Numero: %d", this.numero));
+		System.out.println(String.format("Saldo: %.2f", ContaCorrente.saldo));
 	}
 	
 }
