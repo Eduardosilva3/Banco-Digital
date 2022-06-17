@@ -100,7 +100,7 @@ public class ContaPoupanca implements IConta{
 		        valor = scan.lerDadoDouble();
 		        System.out.println("Valor a ser sacado: " + valor + "\n"+"  Processando Saque... ");
 		         	if(valor>getSaldo()) {
-		         		System.out.println("Saldo insuficiente. " + "\n" + "Cheque espcial n�o aprovado. Entre em contato com seu gerente.");
+		         		System.out.println("Saldo insuficiente. " + "\n" + "Cheque espcial não aprovado. Entre em contato com seu gerente.");
 		         	}else {
 		         		System.out.println("Saque aprovado ... ");
 		         		this.sacar(valor);
