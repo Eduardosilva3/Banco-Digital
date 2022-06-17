@@ -28,7 +28,7 @@ public class MenuContas {
 		
 		
 		
-		
+		LeitoraDados scan = new LeitoraDados();
 		Cliente nome = new Cliente();
 		String nomeC = MenuContas.nomeC;
 		nome.setNome(nomeC);
@@ -37,7 +37,7 @@ public class MenuContas {
 		ContaCorrente cc = new ContaCorrente();
 		ContaPoupanca cp =  new ContaPoupanca();
 		
-		String nav = " ";
+		int nav = 0;
 		
 		System.out.println("Cliente: " + nome.getNome());
 		System.out.println("  ");
@@ -45,11 +45,11 @@ public class MenuContas {
 		System.out.println("1 - Conta Corrente.");
 		System.out.println("2 - Conta poupança.");
 		
-		nav = LeitoraDados.lerDado();
+		nav = scan.lerDadoInt();
 		
-		if(nav.equals("1")) {
+		if(nav==1) {
 			cc.ContaCC();
-		}else if (nav.equals("2")) {
+		}else if (nav == 2) {
 			cp.ContaCP();
 		}
 	}

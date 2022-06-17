@@ -13,7 +13,21 @@ public final class LeitoraDados {
 		public static String lerDado() {
 			
 			String texto = scanner.nextLine();
-			//testando git
+			
 			return texto;
+		}
+		
+		public Integer lerDadoInt() {
+			
+			int inteiro = scanner.nextInt();
+			
+			return inteiro;
+		}
+		
+		public  Double lerDadoDouble() {
+			
+			double valor = scanner.nextDouble();
+			
+			return valor;
 		}
 }

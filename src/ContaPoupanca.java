@@ -1,4 +1,4 @@
-import java.util.Scanner;
+
 
 public class ContaPoupanca implements IConta{
 
@@ -50,39 +50,39 @@ public class ContaPoupanca implements IConta{
 	public void ContaCP() {
 		
 		
-		Scanner scan = new Scanner(System.in);
+		LeitoraDados scan = new LeitoraDados();
 		MenuContas menu = new MenuContas();
 		int codigo = 0;
 		int nav = 0;
 		
 		while(codigo!=5) {
-			System.out.println("Selecione a operaÁ„o desejada: ");
+			System.out.println("Selecione a opera√ß√£o desejada: ");
 			System.out.println("1 - Saque ");
 			System.out.println("2 - Depositar ");
 			System.out.println("3 - Trasnferir ");
 			System.out.println("4 - Imprimir extrato");
 			System.out.println("5 - Sair ");
 			System.out.println("  ");
-			codigo = scan.nextInt();
+			codigo = scan.lerDadoInt();
 			this.codigo = codigo;  
 			this.operacao(this.codigo);
 			
 			if(codigo==5) continue;
 			
-			System.out.println("Deseja sair ou Realizar outra operaÁ„o? ");
-			System.out.println("1 - Realizar outra operaÁ„o.");
+			System.out.println("Deseja sair ou Realizar outra opera√ß√£o? ");
+			System.out.println("1 - Realizar outra opera√ß√£o.");
 			System.out.println("2 - Sair.");
-			nav = scan.nextInt();
+			nav = scan.lerDadoInt();
 			if(nav == 1) {
 				menu.menu(); }
 			if(nav==2) break;
 		}
-		scan.close();
+		
 	}
 	
 	protected void operacao(int retorn) {
-		Scanner scan =  new Scanner(System.in);
 		
+		LeitoraDados scan = new LeitoraDados();
 		
 		ContaCorrente cc = new ContaCorrente();
 		
@@ -97,10 +97,10 @@ public class ContaPoupanca implements IConta{
 		
 		switch(retorn) {
 		case 1: System.out.println("Digite o valor do saque: ");
-		        valor = scan.nextDouble();
+		        valor = scan.lerDadoDouble();
 		        System.out.println("Valor a ser sacado: " + valor + "\n"+"  Processando Saque... ");
 		         	if(valor>getSaldo()) {
-		         		System.out.println("Saldo insuficiente. " + "\n" + "Cheque espcial n„o aprovado. Entre em contato com seu gerente.");
+		         		System.out.println("Saldo insuficiente. " + "\n" + "Cheque espcial nÔøΩo aprovado. Entre em contato com seu gerente.");
 		         	}else {
 		         		System.out.println("Saque aprovado ... ");
 		         		this.sacar(valor);
@@ -110,26 +110,33 @@ public class ContaPoupanca implements IConta{
 		        
 		
 		case 2: System.out.println("Digite o valor do deposito: ");
-				valor = scan.nextDouble();
+				valor = scan.lerDadoDouble();
 				this.depositar(valor);
 				System.out.println("Deposito realizado com sucesso, Valor depositado: " + valor);
 				System.out.println("Saldo em conta R$:" + this.getSaldo());
 				break;
 			
 		case 3: System.out.println("Digite o valor da transferencia: ");
-				valor = scan.nextDouble();
-				System.out.println("Selecione a conta Destino:");
-				System.out.println(" 1 - conta corrente.");
-				System.out.println(" 2 - conta poupanÁa.");
-				contaD = scan.nextInt();
-				if(contaD == 1) {
-					
-					this.transferir(valor, cc);
-					
-				}else if (contaD == 2) {
-					
-					this.transferir(valor, cp);
-					
+				valor =  scan.lerDadoDouble();
+		
+				if(valor>getSaldo()) {
+     				System.out.println("Saldo insuficiente. " + "\n" + "Cheque espcial n√£o aprovado. Entre em contato com seu gerente.");
+				}else {
+					System.out.println("Selecione a conta Destino:");
+					System.out.println(" 1 - conta corrente.");
+					System.out.println(" 2 - conta poupan√ßa.");
+			
+					contaD = scan.lerDadoInt();
+					if(contaD == 1) {
+				
+						this.transferir(valor, cc);
+				
+					}else if (contaD == 2) {
+				
+						this.transferir(valor, cp);
+				
+					}
+					System.out.println("Transferencia Realizada com sucesso.");
 				}
 				break;
 		case 4: System.out.println("Imprimindo Extrato ... ");
@@ -139,14 +146,14 @@ public class ContaPoupanca implements IConta{
 					
 				
 		}
-		scan.close();
+		
 	}
 	
 
 	@Override
 	public void imprimirExtrato() {
 		Cliente nome = new Cliente();
-		System.out.println("=== Extrato Conta PoupanÁa ===");
+		System.out.println("=== Extrato Conta Poupan√ßa ===");
 		System.out.println(String.format("Titular: %s", nome.getNome()));
 		System.out.println(String.format("Agencia: %d", ContaPoupanca.AGENCIA_PADRAO));
 		System.out.println(String.format("Numero: %d", this.numero));
