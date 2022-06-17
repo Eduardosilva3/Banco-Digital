@@ -20,7 +20,7 @@ public class Main {
 		menu.nome();
 		menu.menu();
 
-		System.out.println("Sistema Finalizado. " + "\n" + banco.getNome()+ " Agradece a preferência. ");
+		System.out.println("Sistema Finalizado. " + "\n" + banco.getNome()+ " Agradece a preferÃªncia. ");
 		scan.close();
 	}
 

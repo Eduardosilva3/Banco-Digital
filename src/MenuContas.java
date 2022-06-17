@@ -43,7 +43,7 @@ public class MenuContas {
 		System.out.println("  ");
 		System.out.println("Qual conta deseja acessar?.");
 		System.out.println("1 - Conta Corrente.");
-		System.out.println("2 - Conta poupança.");
+		System.out.println("2 - Conta poupanÃ§a.");
 		
 		nav = LeitoraDados.lerDado();
 		
